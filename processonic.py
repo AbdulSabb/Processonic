@@ -321,7 +321,6 @@ def is_dir_empty(path):
     :return: bool
         The boolean value of whether the directory is empty or not.
     """
-    # Check if file exist and it is empty
     return os.path.exists(path) and len(os.listdir(path)) == 0
 
 
@@ -598,7 +597,7 @@ def segment_directory(path, threshold):
             remove_directory(source)
     else:
         directory = access_directory(path)
-        new_subdir_name = f'\{directory["parent_name"]}_1'
+        new_subdir_name = f'\{directory["parent_name"]}_0'
         parent_path = directory['parent_path']
         source = parent_path + new_subdir_name
         make_directory(source)
@@ -719,6 +718,4 @@ def task_two(source, destination):
 # task_one("D:\Xina\Test\Test50", "D:\movehere", 1000000)
 # task_two("D:\movehere", "D:\Xina\Test\Test45")
 
-
-
-
+# TODO: Check if directory is already made
