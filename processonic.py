@@ -288,7 +288,7 @@ def make_directories(path, directories):
     :return: None
     """
     for directory in directories:
-        make_directory(f"{path}\{directory}")
+        make_directory(f"{path}/{directory}")
 
 
 def remove_files(path, suffix=None):
@@ -484,10 +484,21 @@ def get_chunks_dict(path):
         :value: list(Path)
             A list of paths of the chunks of the original file name.
     """
+    def get_sorting_index(path):
+        """
+        Returns the index for which the sorting should depend on.
+
+        :param path: Path
+            The path object of the file in the operating system.
+        :return: int
+            The index for which the sorting should depend on.
+        """
+        return int(path.suffixes[-3][len(path.suffixes[-2]):])
+
     chunks_dict = {}
     directory = Path(path)
     chunks = list(directory.rglob('*.chk'))
-    chunks.sort()
+    chunks.sort(key=lambda path: get_sorting_index(path))
     for chunk in chunks:
         first_extension = chunk.suffixes[-3]
         partition = chunk.name.find(first_extension)
@@ -513,7 +524,7 @@ def join_file(file_name, chunks):
     read_buffer_size = 1024
     extension = chunks[0].suffixes[-2]
     parent_path = chunks[0].parent
-    with open(f'{parent_path}\{file_name}{extension}', 'ab') as file:
+    with open(f'{parent_path}/{file_name}{extension}', 'ab') as file:
         for chunk in chunks:
             with open(chunk, 'rb') as piece:
                 while True:
@@ -586,18 +597,18 @@ def segment_directory(path, threshold):
         split_files(path, threshold)
         directory = access_directory(path)
         for index, dir in enumerate(segmenter(directory['files'], threshold)):
-            new_subdir_name = f'\{directory["parent_name"]}_{index}'
+            new_subdir_name = f'/{directory["parent_name"]}_{index}'
             parent_path = directory['parent_path']
             source = parent_path + new_subdir_name
             make_directory(source)
             for file in dir:
-                destination = f"{source}\{file.get_name()}"
+                destination = f"{source}/{file.get_name()}"
                 move_file(file.get_path(), destination)
             make_archive(source, ARCHIVE_FORMAT)
             remove_directory(source)
     else:
         directory = access_directory(path)
-        new_subdir_name = f'\{directory["parent_name"]}_0'
+        new_subdir_name = f'/{directory["parent_name"]}_0'
         parent_path = directory['parent_path']
         source = parent_path + new_subdir_name
         make_directory(source)
@@ -647,7 +658,7 @@ def distribute_subdirs(directories, destination):
     """
     for folder, files in directories.items():
         for file in files:
-            move_file(file.get_path(), f"{destination}\{folder}")
+            move_file(file.get_path(), f"{destination}/{folder}")
 
 
 def task_one_single(source, destination, threshold):
@@ -715,7 +726,7 @@ def task_two(source, destination):
         progress.update()
 
 
-# task_one("D:\Xina\Test\Test50", "D:\movehere", 1000000)
-# task_two("D:\movehere", "D:\Xina\Test\Test45")
+task_one("D:\Xina\Test\TestAA", "D:\movehere", 100000)
+task_two("D:\movehere", "D:\Xina\Test\TestAA")
 
 # TODO: Check if directory is already made
