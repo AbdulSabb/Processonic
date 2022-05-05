@@ -92,8 +92,7 @@ def processonic():
     canvas = Canvas(root, height=HEIGHT, width=WIDTH)
     canvas.pack()
 
-    background_image = ImageTk.PhotoImage(Image.open('bg.jpg'))
-    background_label = Label(root, image=background_image)
+    background_label = Label(root, bg='black',)
     background_label.place(relwidth=1, relheight=1)
 
     upper_frame = Frame(root, bg='gray', bd=5)
@@ -108,15 +107,15 @@ def processonic():
     middle_lower_frame = Frame(root, bg='gray', bd=5)
     middle_lower_frame.place(relx=0.5, rely=0.475, relwidth=0.75, relheight=0.1, anchor='n')
 
-    source_entry = Entry(upper_frame, font=20)
+    source_entry = Entry(upper_frame)
     source_entry.place(relwidth=0.65, relheight=1)
     source_entry.insert(0, "Source directory path")
 
-    destination_entry = Entry(middle_upper_frame, font=20)
+    destination_entry = Entry(middle_upper_frame)
     destination_entry.place(relwidth=0.65, relheight=1)
     destination_entry.insert(0, "Destination directory path")
 
-    threshold_entry = Entry(middle_middle_frame, font=20)
+    threshold_entry = Entry(middle_middle_frame)
     threshold_entry.place(relwidth=0.6, relheight=1)
     threshold_entry.insert(0, "Threshold size (default 10 MB)")
     
@@ -131,19 +130,19 @@ def processonic():
     Radiobutton(middle_middle_frame, text='KB', value='KB', variable=selected,
                                  command=selected_size_type).place(relx=0.9)
 
-    select_source_button = Button(upper_frame, text='Select directory', font=20,
+    select_source_button = Button(upper_frame, text='Select directory',
                                   command=lambda: ask_source_dir())
     select_source_button.place(relx=0.7, relheight=1, relwidth=0.3)
 
-    select_destination_button = Button(middle_upper_frame, text='Select directory', font=20,
+    select_destination_button = Button(middle_upper_frame, text='Select directory',
                                        command=lambda: ask_destination_dir())
     select_destination_button.place(relx=0.7, relheight=1, relwidth=0.3)
 
-    task_one_button = Button(middle_lower_frame, text='Task One', font=20,
+    task_one_button = Button(middle_lower_frame, text='Task One',
                              command=lambda: task_one())
     task_one_button.place(relx=0, relheight=1, relwidth=0.49)
 
-    task_two_button = Button(middle_lower_frame, text='Task Two', font=20, command=lambda: task_two())
+    task_two_button = Button(middle_lower_frame, text='Task Two', command=lambda: task_two())
     task_two_button.place(relx=0.51, relheight=1, relwidth=0.49)
 
     lower_frame = Frame(root, bg='gray', bd=10)

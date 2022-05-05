@@ -726,7 +726,7 @@ def task_two(source, destination):
         progress.update()
 
 
-task_one("D:\Xina\Test\TestAA", "D:\movehere", 100000)
-task_two("D:\movehere", "D:\Xina\Test\TestAA")
+# task_one("D:\Xina\Test\TestAA", "D:\movehere", 100000)
+# task_two("D:\movehere", "D:\Xina\Test\TestAA")
 
 # TODO: Check if directory is already made
