@@ -23,3 +23,6 @@ Processonic implements intelligent data partitioning strategies, allowing the sy
 2. **Searching Algorithms**: The system employs advanced searching algorithms to efficiently locate specific data within the datasets.
 
 3. **Data Partitioning**: Intelligent data partitioning ensures that large datasets are divided into manageable partitions, improving overall efficiency.
+
+## Code
+Code can be found inside ![processonic.py](processonic.py)
